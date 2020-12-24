@@ -19,7 +19,7 @@ itself and you are sure to use top-notch quality code; so if you plan
 to implement something serious with Kubernetes, my advice is to use GO as
 a first class citizen language of your system.
 
-One of the goal of this project was to use just **Kubernetes API without any external depencies** (neither the storage),
+One of the goal of this project was to use just **Kubernetes API without any external dependency** (neither the storage),
 infact is noteworthy that `Configmaps` are (ab)used as a persistent storage layer, using a simple technique
 of split/merge parts of files to save the games.
 
