@@ -10,8 +10,8 @@ implemented in Javascript.
 I did this as a PoC [for a company talk](https://www.slideshare.net/sparkfabrik/retro-gaming-machine-made-with-javascript-and-kubernetes-240553959), to demonstrate how **powerful** can be the
 **Kubernetes APIs** when used also to build custom applications.
 
-I've choosed to use **Javascript** as it is an **officially supported client**
-and also because i didn't find any project a bit more complex than a simple hello world, to implement a custom controller.
+I chose to use **Javascript** as it is an **officially supported client**
+and also because I didn't find any project a bit more complex than a simple hello world, to implement a custom controller.
 
 > Personal note: When developing for Kubernetes, you have to deal with tons of REST APIs and complex relationship between them, this is where the GO
 ecosystem shines, you have framework and abstractions used to build Kubernetes
