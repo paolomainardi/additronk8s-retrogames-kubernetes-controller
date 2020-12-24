@@ -1,0 +1,70 @@
+import { Storage } from "@google-cloud/storage";
+import { URL } from "url";
+import { promisify } from "util";
+import { exec } from "child_process";
+import * as path from "path";
+import { sep } from "path";
+import * as fs from "fs";
+import * as os from "os";
+
+export function addOwnerReference(api, owner) {
+  const newApi = { ...api };
+  newApi["metadata"]["ownerReferences"] = [
+    {
+      apiVersion: "v1",
+      controller: true,
+      blockOwnerDeletion: true,
+      kind: "Game",
+      name: owner.metadata.name,
+      uid: owner.metadata.uid,
+    },
+  ];
+  return newApi;
+}
+
+export function addDefaultLabels(api, owner) {
+  if (!api.metadata && owner.metadata) {
+    throw `Objects must contain a metadata property`;
+  }
+  const newApi = { ...api };
+  const defaultLabels = {
+    "sparkfabrik.com/game": owner.metadata.name,
+  };
+  newApi.metadata.labels = { ...newApi.metadata.labels, ...defaultLabels };
+  return newApi;
+}
+
+const mkTempDir = async () => {
+  return await promisify(fs.mkdtemp)(`${os.tmpdir()}${sep}`);
+};
+
+/**
+ *
+ * @param {*} gameObject
+ */
+export const downloadFromGcs = async (gameObject) => {
+  const url = new URL(gameObject.spec.zipUrl);
+  const storage = new Storage();
+  const filename = url.pathname.substr(1, url.pathname.length);
+  const dest = (await mkTempDir()) + `/${filename}`;
+  await storage.bucket(url.host).file(filename).download({ destination: dest });
+  return dest;
+};
+
+/**
+ *
+ * @param {*} game
+ */
+export const splitFile = async (game) => {
+  if (!fs.statSync(game)) {
+    throw `${path} does not exists, cannot split the requested file.`;
+  }
+  const dir = path.dirname(game);
+  const file = path.basename(game);
+  await promisify(exec)(`cd ${dir}; split -d -b 1M ${file} ${file}-split`);
+  const { stdout } = await promisify(exec)(
+    `find ${dir} -name "${file}-split*" | sort`
+  );
+  const split = stdout.split(/[\r\n|\n|\r]/).filter(String);
+  return split;
+};

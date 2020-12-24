@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test
+ownerReferences:
+- apiVersion: v1
+  controller: true
+  blockOwnerDeletion: true
+  kind: Game
+  name: monkey1
+  uid: 7f2ed8eb-15b5-4ef4-9165-36b6245816aa

@@ -1,0 +1,13 @@
+diff --git a/core/rfb.js b/core/rfb.js
+index 7c4e0c9..7217e7c 100644
+--- a/core/rfb.js
++++ b/core/rfb.js
+@@ -152,7 +152,7 @@ export default function RFB(target, url, options) {
+     this._screen.style.width = '100%';
+     this._screen.style.height = '100%';
+     this._screen.style.overflow = 'auto';
+-    this._screen.style.backgroundColor = 'rgb(40, 40, 40)';
++    this._screen.style.backgroundColor = 'black';
+     this._canvas = document.createElement('canvas');
+     this._canvas.style.margin = 'auto';
+     // Some browsers add an outline on focus
