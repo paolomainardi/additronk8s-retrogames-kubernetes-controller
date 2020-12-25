@@ -1,4 +1,5 @@
 import { Storage } from "@google-cloud/storage";
+import * as axios from "axios";
 import { URL } from "url";
 import { promisify } from "util";
 import { exec } from "child_process";
@@ -42,8 +43,35 @@ const mkTempDir = async () => {
  *
  * @param {*} gameObject
  */
-export const downloadFromGcs = async (gameObject) => {
+export const download = async (gameObject) => {
   const url = new URL(gameObject.spec.zipUrl);
+  const protocol = url.protocol;
+  if (protocol == "gs:") {
+    return await downloadFromGcs(url);
+  }
+  if (protocol === "http:" || protocol === "https") {
+    return await downloadFromHttp(url);
+  }
+  throw new Error(`Not supported protocol: ${protocol}`);
+};
+
+/**
+ *
+ * @param {*} gameObject
+ */
+const downloadFromHttp = async (url) => {
+  const filename = url.pathname.substr(1, url.pathname.length);
+  const dest = (await mkTempDir()) + `/${filename}`;
+  const response = await axios({
+    method: "get",
+    url: url.href,
+    responseType: "stream",
+  });
+  response.data.pipe(fs.createWriteStream(dest, response.data));
+  return dest;
+};
+
+const downloadFromGcs = async (url) => {
   const storage = new Storage();
   const filename = url.pathname.substr(1, url.pathname.length);
   const dest = (await mkTempDir()) + `/${filename}`;
