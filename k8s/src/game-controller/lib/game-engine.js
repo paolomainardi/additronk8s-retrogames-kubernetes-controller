@@ -31,7 +31,7 @@ const createConfigMapsSpec = async (files, gameObject) => {
  */
 export async function downloadAndCreateConfigmapsSpec(gameObject) {
   try {
-    const path = await util.downloadFromGcs(gameObject);
+    const path = await util.download(gameObject);
     const files = await util.splitFile(path);
     const configmaps = await createConfigMapsSpec(files, gameObject);
     return configmaps;

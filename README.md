@@ -53,8 +53,7 @@ Running `make` you will have end up with:
 
 ### Games
 
-Currently there is an hard dependency on downloading the games from a Google Cloud Storage bucket,
-it should be publicly accessible.
+Files can be downloaded from any public http endpoint or from any public GCP cloud storage bucket.
 
 The expect manifest to run a game is this:
 
