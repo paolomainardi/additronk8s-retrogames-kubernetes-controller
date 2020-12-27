@@ -1,5 +1,5 @@
 import { Storage } from "@google-cloud/storage";
-import * as axios from "axios";
+import axios from "axios";
 import { URL } from "url";
 import { promisify } from "util";
 import { exec } from "child_process";
@@ -49,7 +49,7 @@ export const download = async (gameObject) => {
   if (protocol == "gs:") {
     return await downloadFromGcs(url);
   }
-  if (protocol === "http:" || protocol === "https") {
+  if (protocol === "http:" || protocol === "https:") {
     return await downloadFromHttp(url);
   }
   throw new Error(`Not supported protocol: ${protocol}`);
@@ -68,7 +68,15 @@ const downloadFromHttp = async (url) => {
     responseType: "stream",
   });
   response.data.pipe(fs.createWriteStream(dest, response.data));
-  return dest;
+  return new Promise((resolve, reject) => {
+    response.data.on("end", () => {
+      resolve(dest);
+    });
+
+    response.data.on("error", (err) => {
+      reject(err);
+    });
+  });
 };
 
 const downloadFromGcs = async (url) => {
