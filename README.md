@@ -23,6 +23,11 @@ One of the goal of this project was to use just **Kubernetes API without any ext
 infact is noteworthy that `Configmaps` are (ab)used as a persistent storage layer, using a simple technique
 of split/merge parts of files to save the games.
 
+How it works (hand written schematic):
+
+![AdditronK8S Scheme](./docs/images/scheme.jpg)
+
+
 See it in action:
 
 [![asciicast](https://asciinema.org/a/yuUCC0i5BizfRPYoSBcGAP4Sc.svg)](https://asciinema.org/a/yuUCC0i5BizfRPYoSBcGAP4Sc)
