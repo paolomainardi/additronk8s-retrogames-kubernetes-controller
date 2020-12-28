@@ -7,7 +7,7 @@ implemented in Javascript.
 
 > The name `Additron` is a tribute to the great inventor and scientist [Josef Kates](https://en.wikipedia.org/wiki/Josef_Kates) who invented the [**first digital playing machine**](https://en.wikipedia.org/wiki/Bertie_the_Brain) to showcase his Additron tube invention.
 
-I did this as a PoC [for a company talk](https://www.slideshare.net/sparkfabrik/retro-gaming-machine-made-with-javascript-and-kubernetes-240553959), to demonstrate how **powerful** can be the
+I did this as a PoC [for a company talk](https://www2.slideshare.net/sparkfabrik/retro-gaming-machine-made-with-javascript-and-kubernetes-240654394), to demonstrate how **powerful** can be the
 **Kubernetes APIs** when used also to build custom applications.
 
 I chose to use **Javascript** as it is an **officially supported client**
