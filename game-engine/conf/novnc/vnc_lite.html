@@ -147,7 +147,7 @@
                 }
                 // Start the sound with alt+(sS)
                 const key = e.key;
-                if (e.altKey && key.toLowerCase() === "s") {
+                if (e.altKey && (key.toLowerCase() === "s" || e.code == 'KeyS')) {
                     e.preventDefault();
                     try {
                         wa.start();
