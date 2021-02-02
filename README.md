@@ -46,17 +46,21 @@ This project consists of 3 main components:
 
 ## Quick start
 
-### Controller
+You just need a working k8s cluster, capable to connet to the public internet.
 
-To run the controller it is just needed a working Docker environment.
+To install it from the root, run the following commands:
 
-Running `make` you will have end up with:
 
-1. A k3d kubernetes cluster
-2. Docker images loaded
-3. Game controller deployed
+```shell
+kubectl apply -f k8s/manifests/namespace.yml
+kubectl -n games apply -f k8s/manifests/crd-game-controller.yml
+kubectl -n games apply -f k8s/manifests/game-controller-sa.yml
+kubectl -n games apply -f k8s/manifests/game-controller-cluster-role.yml
+kubectl -n games apply -f k8s/manifests/game-controller-cluster-role-binding.yml
+kubectl -n games apply -f k8s/manifests/game-controller.yaml
+```
 
-### Games
+## Games
 
 Files can be downloaded from any public http endpoint or from any public GCP cloud storage bucket.
 
@@ -102,4 +106,14 @@ the command to run to execute the game.
 > *IMPORTANT*: To start the audio websocket, before to start the game and inside the
 > dosbox cli, you have to press `ALT + s` this will start once the needed websocket,
 > to transport the audio from the pulseaudio server to your browser.
+
+### Development
+
+The development environment is based on `k3d` and `skaffold`,
+by running `make dev` you will have end up with:
+
+1. A k3d kubernetes cluster
+2. Docker images loaded into the k3d cluster
+3. Game controller up and running with live-reload in case of code changes
+
 

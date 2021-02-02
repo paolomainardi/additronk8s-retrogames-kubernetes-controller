@@ -18,5 +18,6 @@ spec:
     spec:
       serviceAccount: game-controller-service-account
       containers:
-      - image: sparkfabrik/game-controller
-        name: game-controller
+      - image: paolomainardi/additronk8s-game-controller
+        name: additronk8s-game-controller
+        imagePullPolicy: Always

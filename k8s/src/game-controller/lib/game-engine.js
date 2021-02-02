@@ -107,8 +107,8 @@ const createDeploymentSpec = (gameObject, configmaps) => {
           initContainers: [
             {
               name: "hydrate-game",
-              image: "sparkfabrik/retro-games-k8s:1.0",
-
+              image: "paolomainardi/additronk8s-game-engine:latest",
+              imagePullPolicy: "Always",
               command: [
                 "bash",
                 "-c",
@@ -119,7 +119,8 @@ const createDeploymentSpec = (gameObject, configmaps) => {
           containers: [
             {
               name: "game-engine",
-              image: "sparkfabrik/retro-games-k8s:1.0",
+              image: "paolomainardi/additronk8s-game-engine:latest",
+              imagePullPolicy: "Always",
               env: [
                 {
                   name: "GAME_DIR",

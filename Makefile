@@ -10,10 +10,10 @@ ifndef GAME_EXE
 endif
 
 build-game-engine:
-	docker build -t sparkfabrik/retro-games-k8s:1.0 game-engine
+	docker build -t paolomainardi/additronk8s-game-engine:latest game-engine
 
 k3d-load-game-engine: build-game-engine
-	k3d image import sparkfabrik/retro-games-k8s:1.0 -c retrogames-k8s-dev
+	k3d image import paolomainardi/additronk8s-game-engine:latest -c retrogames-k8s-dev
 
 run-game-engine: build
 	./game-engine/run.sh
