@@ -27,7 +27,6 @@ How it works (hand written schematic):
 
 ![AdditronK8S Scheme](./docs/images/scheme.jpg)
 
-
 See it in action:
 
 [![asciicast](https://asciinema.org/a/yuUCC0i5BizfRPYoSBcGAP4Sc.svg)](https://asciinema.org/a/yuUCC0i5BizfRPYoSBcGAP4Sc)
@@ -46,17 +45,49 @@ This project consists of 3 main components:
 
 ## Quick start
 
-### Controller
+You just need a working k8s cluster, with a working external connection.
 
-To run the controller it is just needed a working Docker environment.
+To install it from the root, run the following commands:
 
-Running `make` you will have end up with:
+```shell
+kubectl apply -f k8s/manifests/namespace.yml
+kubectl -n games apply -f k8s/manifests/crd-game-controller.yml
+kubectl -n games apply -f k8s/manifests/game-controller-sa.yml
+kubectl -n games apply -f k8s/manifests/game-controller-cluster-role.yml
+kubectl -n games apply -f k8s/manifests/game-controller-cluster-role-binding.yml
+kubectl -n games apply -f k8s/manifests/game-controller.yaml
+```
 
-1. A k3d kubernetes cluster
-2. Docker images loaded
-3. Game controller deployed
+Now you can run a demo game to test if everything is working as expected:
 
-### Games
+```shell
+kubectl -n games apply -f k8s/games/quake.yml
+```
+
+> You can also tail the logs of the game-controller to ensure that it was successful 
+> in processing the location of your game zip file.
+
+> ```shell
+> kubectl -n games logs deployment/game-controller -f
+> ```
+
+Once you have the game up and running, you can access via the web browser by proxying
+the game service, like this:
+
+```
+kubectl port-forward svc/quake 8080:8080 8081:8081
+```
+
+Finally you can access the game console on: `https://localhost:8080`
+
+At this stage you will be presented with the dosbox command line and
+the command to run to execute the game.
+
+> *IMPORTANT*: To start the audio websocket, before to start the game and inside the
+> dosbox cli, you have to press `ALT + s` this will start once the needed websocket,
+> to transport the audio from the pulseaudio server to your browser.
+
+## Games
 
 Files can be downloaded from any public http endpoint or from any public GCP cloud storage bucket.
 
@@ -87,19 +118,15 @@ unzip game.zip
  - VIDEO.MOD
 ```
 
-Once you have the game up and running, you can access via the web browser by proxying
-the game service, like this:
+### Development
 
-```
-kubectl port-forward svc/game-name 8080:8080 8081:8081
-```
+The development environment is based on `k3d` and `skaffold`,
+by running `make dev` you will have end up with:
 
-Finally you can access the game console on: `https://localhost:8080`
+1. A k3d kubernetes cluster
+2. Docker images loaded into the k3d cluster
+3. Game controller up and running with live-reload in case of code changes
 
-At this stage you will be presented with the dosbox command line and
-the command to run to execute the game.
+## References
 
-> *IMPORTANT*: To start the audio websocket, before to start the game and inside the
-> dosbox cli, you have to press `ALT + s` this will start once the needed websocket,
-> to transport the audio from the pulseaudio server to your browser.
-
+* [Retro DOS Games on Kubernetes:](https://www.virtuallyghetto.com/2021/02/retro-dos-games-on-kubernetes.html) many thanks to [William Lam](https://twitter.com/lamw) for this great write-up.

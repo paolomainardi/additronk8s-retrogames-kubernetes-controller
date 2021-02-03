@@ -9,18 +9,20 @@ import * as util from "./util.js";
  */
 const createConfigMapsSpec = async (files, gameObject) => {
   let configmaps = [];
+  let index = 0;
   for (const file of files) {
-    let filename = path.basename(file);
+    let filename = path.basename(file).toLowerCase();
     let data = await fs.promises.readFile(file, { encoding: "base64" });
     let configmap = {
       metadata: {
-        name: `${gameObject.metadata.name}-${filename}`,
+        name: `${gameObject.metadata.name}-${index}`,
       },
       binaryData: {
         [filename]: data,
       },
     };
     configmaps.push(configmap);
+    index++;
   }
   return configmaps;
 };
@@ -107,8 +109,8 @@ const createDeploymentSpec = (gameObject, configmaps) => {
           initContainers: [
             {
               name: "hydrate-game",
-              image: "sparkfabrik/retro-games-k8s:1.0",
-
+              image: "paolomainardi/additronk8s-game-engine:latest",
+              imagePullPolicy: "Always",
               command: [
                 "bash",
                 "-c",
@@ -119,7 +121,8 @@ const createDeploymentSpec = (gameObject, configmaps) => {
           containers: [
             {
               name: "game-engine",
-              image: "sparkfabrik/retro-games-k8s:1.0",
+              image: "paolomainardi/additronk8s-game-engine:latest",
+              imagePullPolicy: "Always",
               env: [
                 {
                   name: "GAME_DIR",

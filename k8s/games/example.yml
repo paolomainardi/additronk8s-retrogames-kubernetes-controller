@@ -1,9 +1,0 @@
-apiVersion: retro.sparkfabrik.com/v1
-kind: Game
-metadata:
-  name: game-name
-spec:
-  name: "Game name human friendly"
-  zipUrl: "gs://my-gs-bucket/game.zip"
-  dir: "GAME"
-  exe: "GAME.EXE"
