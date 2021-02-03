@@ -1,9 +1,9 @@
 apiVersion: retro.sparkfabrik.com/v1
 kind: Game
 metadata:
-  name: game-name
+  name: quake
 spec:
-  name: "Game name human friendly"
-  zipUrl: "gs://my-gs-bucket/game.zip"
-  dir: "GAME"
-  exe: "GAME.EXE"
+  name: "Quake"
+  zipUrl: "https://archive.org/download/msdos_Quake106_shareware/msdos_Quake106_shareware.zip"
+  dir: "."
+  exe: "QUAKE.EXE"

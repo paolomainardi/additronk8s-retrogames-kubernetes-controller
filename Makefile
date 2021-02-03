@@ -22,7 +22,7 @@ run: create-k3d-cluster k3d-load-game-engine
 	skaffold run -n games --tail
 
 dev: k3d-load-game-engine
-	skaffold dev -n games
+	skaffold dev -n games --tail
 
 create-k3d-cluster:
 	k3d cluster delete retrogames-k8s-dev || true

@@ -9,18 +9,20 @@ import * as util from "./util.js";
  */
 const createConfigMapsSpec = async (files, gameObject) => {
   let configmaps = [];
+  let index = 0;
   for (const file of files) {
-    let filename = path.basename(file);
+    let filename = path.basename(file).toLowerCase();
     let data = await fs.promises.readFile(file, { encoding: "base64" });
     let configmap = {
       metadata: {
-        name: `${gameObject.metadata.name}-${filename}`,
+        name: `${gameObject.metadata.name}-${index}`,
       },
       binaryData: {
         [filename]: data,
       },
     };
     configmaps.push(configmap);
+    index++;
   }
   return configmaps;
 };

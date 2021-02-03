@@ -1,10 +1,10 @@
 apiVersion: skaffold/v1
 kind: Config
 metadata:
-  name: events
+  name: additronk8s
 build:
   artifacts:
-  - image: sparkfabrik/game-controller
+  - image: paolomainardi/additronk8s-game-controller
     context: k8s/src/game-controller
     docker:
       dockerfile: Dockerfile

@@ -60,7 +60,7 @@ export const download = async (gameObject) => {
  * @param {*} gameObject
  */
 const downloadFromHttp = async (url) => {
-  const filename = url.pathname.substr(1, url.pathname.length);
+  const filename = url.pathname.substr(1, url.pathname.length).split('/').pop();
   const dest = (await mkTempDir()) + `/${filename}`;
   const response = await axios({
     method: "get",

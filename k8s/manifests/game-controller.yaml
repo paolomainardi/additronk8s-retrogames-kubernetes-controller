@@ -20,4 +20,3 @@ spec:
       containers:
       - image: paolomainardi/additronk8s-game-controller
         name: additronk8s-game-controller
-        imagePullPolicy: Always
