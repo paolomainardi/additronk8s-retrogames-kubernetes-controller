@@ -1,4 +1,4 @@
-name: buildx
+name: build-controller
 
 on:
   pull_request:
@@ -19,8 +19,9 @@ jobs:
         name: Prepare
         id: prepare
         run: |
-          DOCKER_IMAGE=paolomainardi/additronk8s-game-engine
+          DOCKER_IMAGE=paolomainardi/additronk8s-game-controller
           DOCKER_PLATFORMS=linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/386
+          DOCKERFILE_PATH=./k8s/src/game-controller
           VERSION=latest
 
           if [[ $GITHUB_REF == refs/tags/* ]]; then
@@ -41,29 +42,27 @@ jobs:
             --build-arg VERSION=${VERSION} \
             --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
             --build-arg VCS_REF=${GITHUB_SHA::8} \
-            ${TAGS} --file ./game-engine/Dockerfile ./game-engine
+            ${TAGS} --file ${DOCKERFILE_PATH}/Dockerfile ${DOCKERFILE_PATH}
+          
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      -
-        name: Docker Buildx (build)
+        
+      - name: Docker Buildx (build)
         run: |
           docker buildx build --output "type=image,push=false" ${{ steps.prepare.outputs.buildx_args }}
-      -
-        name: Login to DockerHub
+      - name: Login to DockerHub
         if: success() && github.event_name != 'pull_request'
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      -
-        name: Docker Buildx (push)
+      - name: Docker Buildx (push)
         if: success() && github.event_name != 'pull_request'
         run: |
           docker buildx build --output "type=image,push=true" ${{ steps.prepare.outputs.buildx_args }}
-      -
-        name: Inspect image
+      - name: Inspect image
         if: always() && github.event_name != 'pull_request'
         run: |
           docker buildx imagetools inspect ${{ steps.prepare.outputs.docker_image }}:${{ steps.prepare.outputs.version }}
