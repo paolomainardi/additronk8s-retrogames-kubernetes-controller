@@ -7,7 +7,7 @@ implemented in Javascript.
 
 > The name `Additron` is a tribute to the great inventor and scientist [Josef Kates](https://en.wikipedia.org/wiki/Josef_Kates) who invented the [**first digital playing machine**](https://en.wikipedia.org/wiki/Bertie_the_Brain) to showcase his Additron tube invention.
 
-I did this as a PoC [for a company talk](https://www2.slideshare.net/sparkfabrik/retro-gaming-machine-made-with-javascript-and-kubernetes-240654394) [(Video)](https://youtu.be/XlhSCWzgQ4k), to demonstrate how **powerful** can be the
+I did this as a PoC [for a company talk](https://www2.slideshare.net/sparkfabrik/retro-gaming-machine-made-with-javascript-and-kubernetes) [(Video)](https://youtu.be/XlhSCWzgQ4k), to demonstrate how **powerful** can be the
 **Kubernetes APIs** when used also to build custom applications.
 
 I chose to use **Javascript** as it is an **officially supported client**
@@ -75,7 +75,7 @@ Once you have the game up and running, you can access via the web browser by pro
 the game service, like this:
 
 ```
-kubectl port-forward svc/quake 8080:8080 8081:8081
+kubectl -n games port-forward svc/quake 8080:8080 8081:8081
 ```
 
 Finally you can access the game console on: `https://localhost:8080`
