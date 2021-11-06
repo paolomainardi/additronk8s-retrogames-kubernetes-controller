@@ -12,7 +12,7 @@ export function addOwnerReference(api, owner) {
   const newApi = { ...api };
   newApi["metadata"]["ownerReferences"] = [
     {
-      apiVersion: "v1",
+      apiVersion: "retro.sparkfabrik.com/v1",
       controller: true,
       blockOwnerDeletion: true,
       kind: "Game",
