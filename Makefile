@@ -10,10 +10,10 @@ ifndef GAME_EXE
 endif
 
 build-game-engine:
-	docker build -t paolomainardi/additronk8s-game-engine:latest game-engine
+	docker build -t ghcr.io/paolomainardi/additronk8s-game-engine:latest game-engine
 
 kind-load-game-engine: build-game-engine
-	kind load docker-image paolomainardi/additronk8s-game-engine:latest --name retrogames-k8s-dev
+	kind load docker-image ghcr.io/paolomainardi/additronk8s-game-engine:latest --name retrogames-k8s-dev
 
 run-game-engine: build
 	./game-engine/run.sh

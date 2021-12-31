@@ -18,5 +18,5 @@ spec:
     spec:
       serviceAccount: game-controller-service-account
       containers:
-      - image: paolomainardi/additronk8s-game-controller
+      - image: ghcr.io/paolomainardi/additronk8s-game-controller
         name: additronk8s-game-controller
