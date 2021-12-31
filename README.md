@@ -1,5 +1,7 @@
 # AdditronK8S
 
+[![build-controller](https://github.com/paolomainardi/additronk8s-retrogames-kubernetes-controller/actions/workflows/build-controller.yaml/badge.svg)](https://github.com/paolomainardi/additronk8s-retrogames-kubernetes-controller/actions/workflows/build-controller.yaml) - [![build-engine](https://github.com/paolomainardi/additronk8s-retrogames-kubernetes-controller/actions/workflows/build-engine.yml/badge.svg)](https://github.com/paolomainardi/additronk8s-retrogames-kubernetes-controller/actions/workflows/build-engine.yml)
+
 ## Description
 
 AdditronK8S is a retro game machine build as a Kubernetes custom controller and
@@ -64,7 +66,7 @@ Now you can run a demo game to test if everything is working as expected:
 kubectl -n games apply -f k8s/games/quake.yml
 ```
 
-> You can also tail the logs of the game-controller to ensure that it was successful 
+> You can also tail the logs of the game-controller to ensure that it was successful
 > in processing the location of your game zip file.
 
 > ```shell
