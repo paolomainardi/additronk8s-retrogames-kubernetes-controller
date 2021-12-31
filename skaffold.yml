@@ -4,7 +4,7 @@ metadata:
   name: additronk8s
 build:
   artifacts:
-  - image: paolomainardi/additronk8s-game-controller
+  - image: ghcr.io/paolomainardi/additronk8s-game-controller
     context: k8s/src/game-controller
     docker:
       dockerfile: Dockerfile
