@@ -1,6 +1,6 @@
 # AdditronK8S
 
-[![build-controller](https://github.com/paolomainardi/additronk8s-retrogames-kubernetes-controller/actions/workflows/build-controller.yaml/badge.svg)](https://github.com/paolomainardi/additronk8s-retrogames-kubernetes-controller/actions/workflows/build-controller.yaml) - [![build-engine](https://github.com/paolomainardi/additronk8s-retrogames-kubernetes-controller/actions/workflows/build-engine.yml/badge.svg)](https://github.com/paolomainardi/additronk8s-retrogames-kubernetes-controller/actions/workflows/build-engine.yml)
+[![build-controller](https://github.com/paolomainardi/additronk8s-retrogames-kubernetes-controller/actions/workflows/build-controller.yaml/badge.svg)](https://github.com/paolomainardi/additronk8s-retrogames-kubernetes-controller/actions/workflows/build-controller.yaml) [![build-engine](https://github.com/paolomainardi/additronk8s-retrogames-kubernetes-controller/actions/workflows/build-engine.yml/badge.svg)](https://github.com/paolomainardi/additronk8s-retrogames-kubernetes-controller/actions/workflows/build-engine.yml)
 
 ## Description
 
